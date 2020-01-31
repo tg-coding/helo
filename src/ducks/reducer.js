@@ -2,13 +2,13 @@ const initialState = {
     user: {
         id: 0,
         username: '',
-        profile_pic: ''
+        profilePic: ''
     }
 }
 
-const GET_USER = 'GET_USER'
+const GET_USER = "GET_USER"
 
-export const getUser = (user) => {
+export function getUser(user) {
     return {
         type: GET_USER,
         payload: user
@@ -19,7 +19,7 @@ export default function reducer (state = initialState, action) {
     const {type, payload} = action
     switch(type){
         case GET_USER:
-            return {user: payload}
+            return {...state, username: payload.username, profilePic: payload.profilePic}
         default:
             return state
     }

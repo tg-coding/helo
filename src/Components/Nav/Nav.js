@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import {getUser} from '../../ducks/reducer';
 import axios from 'axios';
 import Home from './home.png';
 import NewPost from './new_post.png';
@@ -8,8 +9,11 @@ import Logout from './logout.png'
 import './nav.css';
 
 class Nav extends Component {
+
+
     render (){
-        console.log(this.props)
+        console.log(this.props.user)
+        
         if(this.props.location.pathname === '/'){
             return <> </>
         } else {
@@ -18,8 +22,9 @@ class Nav extends Component {
                 <div className='nav-bar'>
 
                     <div>
-                        <img id='profile-pic' src='https://robohash.org/tg' alt='profile pic'/>
-                        <p id='username'>Hello {this.props.user.username}</p>
+                        <img id='profile-pic' src={this.props.profilePic} alt='profile pic'/>
+                        <p id='username'>Hello {this.props.user}</p>
+
                         <img className='nav-icon' src={Home} alt='home'
                              onClick={() => this.props.history.push('/dashboard')}
                         />
@@ -29,7 +34,7 @@ class Nav extends Component {
                     </div>
 
                     <img className='nav-icon' src={Logout} alt='logout'
-                         onClick={() => axios.post('/auth/logout').then(()=>this.props.history.push('/'))}
+                         onClick={() => axios.post('/auth/logout').then(()=> this.props.history.push('/'))}
                     />
 
                 </div>
@@ -39,7 +44,10 @@ class Nav extends Component {
 }
 
 function mapStateToProps(state){
-    return {user: state.reducer.user};
+    return {user: state.reducer.username, profilePic: state.reducer.profilePic};
 }
 
-export default connect(mapStateToProps)(withRouter(Nav))
+
+export default connect(mapStateToProps, {getUser})(withRouter(Nav));
+
+

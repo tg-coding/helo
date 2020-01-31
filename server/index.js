@@ -4,7 +4,7 @@ const cors = require('cors');
 const massive = require('massive');
 const session = require('express-session');
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env;
-const authCtrl = require ('./controllers/authController');
+const ctrl = require('./controllers/controller');
 
 const app = express();
 
@@ -19,6 +19,17 @@ app.use(
     })
 );
 
+// auth endpoints
+app.post('/auth/register', ctrl.register);
+app.post('/auth/login', ctrl.login);
+app.post('/auth/logout', ctrl.logout);
+app.get('/auth/user', ctrl.getUser);
+
+
+app.get('/api/posts', ctrl.getPosts);
+
+
+
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
     console.log('db connected')
@@ -26,8 +37,3 @@ massive(CONNECTION_STRING).then(db => {
 });
 
 
-// auth endpoints
-app.post('/auth/register', authCtrl.register)
-app.post('/auth/login', authCtrl.login)
-app.post('/auth/logout', authCtrl.logout)
-app.get('/auth/user', authCtrl.getUser)
