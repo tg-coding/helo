@@ -1,12 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import routes from './routes';
+import Nav from './Components/Nav/Nav';
+import {Provider} from 'react-redux';
+import store from './ducks/store';
+import {HashRouter} from 'react-router-dom';
+// import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <Provider store={store}>
+      <HashRouter>
+        <div className="App">
 
-    </div>
+          <Nav/>
+          {routes}
+          
+        </div>
+      </HashRouter>
+    </Provider>
   );
 }
 

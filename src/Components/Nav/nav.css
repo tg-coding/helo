@@ -1,0 +1,20 @@
+.nav-bar{
+    width: 75px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: black;
+}
+
+#username{
+    color: red;
+}
+
+#profile-pic{
+    width: 50px;
+}
+
+.nav-icon{
+    width: 50px;
+}
