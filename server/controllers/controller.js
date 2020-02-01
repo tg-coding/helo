@@ -55,4 +55,11 @@ module.exports = {
         const db = req.app.get('db');
         db.get_posts().then(data => res.status(200).send(data));
     },
+
+    getPostInfo: async (req, res) => {
+        console.log('hit')
+        const db = req.app.get('db');
+        const postInfo = await db.post_info();
+        return res.status(200).send(postInfo)
+    }
 }

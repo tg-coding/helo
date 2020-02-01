@@ -27,6 +27,7 @@ app.get('/auth/user', ctrl.getUser);
 
 
 app.get('/api/posts', ctrl.getPosts);
+app.get('/api/postinfo', ctrl.getPostInfo);
 
 
 

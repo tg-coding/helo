@@ -11,6 +11,12 @@ import './nav.css';
 class Nav extends Component {
 
 
+    logout() {
+        axios.get('/auth/logout').then(() => {
+          this.props.updateUser({});
+        }).catch(err => console.log(err));
+      }
+
     render (){
         console.log(this.props.user)
         
@@ -34,7 +40,9 @@ class Nav extends Component {
                     </div>
 
                     <img className='nav-icon' src={Logout} alt='logout'
-                         onClick={() => axios.post('/auth/logout').then(()=> this.props.history.push('/'))}
+                         onClick={() => axios.post('/auth/logout')
+                         .then(() => this.props.getUser({}))
+                         .then(()=> this.props.history.push('/'))}
                     />
 
                 </div>
@@ -46,7 +54,6 @@ class Nav extends Component {
 function mapStateToProps(state){
     return {user: state.reducer.username, profilePic: state.reducer.profilePic};
 }
-
 
 export default connect(mapStateToProps, {getUser})(withRouter(Nav));
 

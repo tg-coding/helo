@@ -3,6 +3,8 @@ import {withRouter} from 'react-router-dom';
 
 class Post extends Component {
     
+
+    
     render (){
         if(this.props.location.pathname === '/dashboard'){
             return(
