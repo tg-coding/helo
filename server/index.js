@@ -4,7 +4,8 @@ const cors = require('cors');
 const massive = require('massive');
 const session = require('express-session');
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env;
-const ctrl = require('./controllers/controller');
+const authCtrl = require('./controllers/authController')
+const postCtrl = require('./controllers/postController');
 
 const app = express();
 
@@ -20,14 +21,15 @@ app.use(
 );
 
 // auth endpoints
-app.post('/auth/register', ctrl.register);
-app.post('/auth/login', ctrl.login);
-app.post('/auth/logout', ctrl.logout);
-app.get('/auth/user', ctrl.getUser);
+app.post('/auth/register', authCtrl.register);
+app.post('/auth/login', authCtrl.login);
+app.post('/auth/logout', authCtrl.logout);
+app.get('/auth/user', authCtrl.getUser);
 
 
-app.get('/api/posts', ctrl.getPosts);
-app.get('/api/postinfo', ctrl.getPostInfo);
+app.get('/api/posts/:id', postCtrl.getPosts);
+app.get('/api/post/:id', postCtrl.getPost);
+app.post('/api/post', postCtrl.addPost);
 
 
 
@@ -36,5 +38,3 @@ massive(CONNECTION_STRING).then(db => {
     console.log('db connected')
     app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`))
 });
-
-

@@ -18,7 +18,7 @@ class Nav extends Component {
       }
 
     render (){
-        console.log(this.props.user)
+        // console.log(this.props)
         
         if(this.props.location.pathname === '/'){
             return <> </>
@@ -28,8 +28,8 @@ class Nav extends Component {
                 <div className='nav-bar'>
 
                     <div>
-                        <img id='profile-pic' src={this.props.profilePic} alt='profile pic'/>
-                        <p id='username'>Hello {this.props.user}</p>
+                        <img id='profile-pic' src={this.props.user.profile_pic || 'https://robohash.org/btg'} alt='profile pic'/>
+                        <p id='username'>{this.props.user.username}</p>
 
                         <img className='nav-icon' src={Home} alt='home'
                              onClick={() => this.props.history.push('/dashboard')}
@@ -51,10 +51,17 @@ class Nav extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {user: state.reducer.username, profilePic: state.reducer.profilePic};
-}
+// function mapStateToProps(state){
+//     console.log(state.reducer.id)
+//     return {user: state.reducer.username, profilePic: state.reducer.profilePic};
+// }
 
-export default connect(mapStateToProps, {getUser})(withRouter(Nav));
+// export default connect(mapStateToProps, {getUser})(withRouter(Nav));
 
+function mapStateToProps(state) {
+    // console.log(state.reducer.user)
+    return { user: state.reducer.user};
+  }
+  
+  export default connect(mapStateToProps, {getUser})(withRouter(Nav));
 
